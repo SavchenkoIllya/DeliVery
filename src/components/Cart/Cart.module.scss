@@ -1,0 +1,114 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.container{
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  .wrapper {
+    position: fixed;
+    width: 33.3333%;
+    height: 100%;
+    right: 0;
+    background-color: $mainColor;
+    -webkit-transform: translateZ(0);
+    visibility: visible;
+    -webkit-backface-visibility: hidden;
+    -webkit-box-shadow: -20px 0px 40px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: -20px 0px 40px 10px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    animation-name: show;
+    animation-duration: 500ms;
+  
+    @keyframes show {
+      0% {
+        right: -500px;
+      }
+      100% {
+        right: 0;
+      }
+    }
+  
+    .empty {
+      p {
+        line-height: 80vh;
+      }
+    }
+  
+    header {
+      margin: 20px 0px 20px;
+      color: $secColor;
+      font-weight: 900;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+  
+      p {
+        letter-spacing: 0.1rem;
+      }
+    }
+  
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  
+    a,
+    p {
+      color: $secColor;
+    }
+  
+    a {
+      padding: 8px 12px;
+      color: $thirdColor;
+      border: $thirdColor solid 1px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+  
+      &:hover {
+        color: $secColor;
+        background: $thirdColor;
+      }
+    }
+    .ggClose {
+      color: $thirdColor;
+      box-sizing: border-box;
+      position: relative;
+      display: block;
+      transform: scale(var(--ggs, 1));
+      width: 22px;
+      height: 22px;
+      border: 2px solid transparent;
+      border-radius: 40px;
+      transition: 0.3s ease-in-out;
+  
+      &:hover {
+        color: $secColor;
+        cursor: pointer;
+      }
+    }
+  
+    .ggClose::after,
+    .ggClose::before {
+      content: "";
+      display: block;
+      box-sizing: border-box;
+      position: absolute;
+      width: 16px;
+      height: 2px;
+      background: currentColor;
+      transform: rotate(45deg);
+      border-radius: 5px;
+      top: 8px;
+      left: 1px;
+    }
+    .ggClose::after {
+      transform: rotate(-45deg);
+    }
+  }
+}

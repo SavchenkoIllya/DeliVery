@@ -1,0 +1,92 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.block{
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  
+  .wrapper {
+    margin: 20px;
+    margin-bottom: 50px;
+    background: $secColor;
+    width: 500px;
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
+  
+    &:hover {
+      -webkit-box-shadow: 0px 0px 10px 5px rgba(229, 81, 37, 0.5);
+      box-shadow: 0px 0px 10px 10px rgba(229, 81, 37, 0.3);
+      border: $thirdColor solid 1px;
+    }
+  
+    .handle{
+      padding-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      p{
+        margin: 0px 30px;
+      }
+
+      a{
+        padding: 12px;
+        border-radius: 5px;
+        border: $thirdColor solid 1px;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+          background: $thirdColor;
+          color: $secColor;
+          cursor: pointer;
+        }
+      }
+    }
+
+    img {
+      width: -webkit-fill-available;
+      height: auto;
+      border-radius: 29px 29px 0px 0px;
+    }
+  
+    .header {
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+  
+    .info {
+      margin: 20px;
+    }
+  
+    p {
+      color: $mainColor;
+      text-align: justify;
+    }
+  
+    button {
+      margin-bottom: 20px;
+      padding: 10px;
+      background: none;
+      color: $thirdColor;
+      border: $thirdColor solid 1px;
+      border-radius: 10px;
+      transition: 0.3s ease-in-out;
+  
+      &:hover {
+        color: $secColor;
+        background: $thirdColor;
+        cursor: pointer;
+      }
+    }
+  
+    .priceNgramms {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+  }
+}

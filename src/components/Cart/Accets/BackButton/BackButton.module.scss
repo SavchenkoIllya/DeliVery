@@ -1,0 +1,64 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.back {
+  background: none;
+  margin-left: 20px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0rem;
+  color: $thirdColor;
+  border: $thirdColor solid 1px;
+  border-radius: 10px;
+  width: fit-content;
+  transition: 0.3s ease-in-out;
+
+  &:hover .ggClose {
+    color: $secColor;
+  }
+
+  &:hover {
+    border: $secColor solid 1px;
+    cursor: pointer;
+    color: $secColor;
+  }
+
+  i {
+    margin-right: 10px;
+  }
+
+  .ggClose {
+    color: $thirdColor;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs, 1));
+    width: 22px;
+    height: 22px;
+    border: 2px solid transparent;
+    border-radius: 40px;
+    transition: 0.3s ease-in-out;
+  }
+
+  .ggClose::after,
+  .ggClose::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: currentColor;
+    transform: rotate(45deg);
+    border-radius: 5px;
+    top: 8px;
+    left: 1px;
+  }
+  .ggClose::after {
+    transform: rotate(-45deg);
+  }
+}

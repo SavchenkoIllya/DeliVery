@@ -1,0 +1,14 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.wrapper {
+  background: $mainColor;
+  padding-top: 83px;
+  .carouselCard {
+    img {
+      width: 100%;
+      height: 500px;
+    }
+  }
+}
