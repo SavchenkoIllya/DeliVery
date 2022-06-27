@@ -1,7 +1,8 @@
+//auth
 import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 //styles
-import { auth } from "../../../firebase";
 import styles from "./LoggedInNav.module.scss";
 
 function LoggedInNav() {

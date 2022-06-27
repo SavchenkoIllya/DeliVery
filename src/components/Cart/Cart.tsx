@@ -1,48 +1,40 @@
-import React, { useEffect } from "react";
 //components
-import BackButton from "./Accets/BackButton/BackButton";
+import { BackButton } from "./Accets/BackButton/BackButton";
 import { CartItem } from "./Accets/CartItem/CartItem";
 import { OrderForm } from "./Accets/OrderForm/OrderForm";
+import { useContext } from "react";
+import { AuthContext } from "../../appContext";
+//Styles
 import styles from "./Cart.module.scss";
 
-interface CartProps {
-  updateState(a: any): void;
-  cartItems: any[];
-}
-
-export const Cart: React.FC<CartProps> = (props) => {
-
+export const Cart: React.FC = () => {
+  const { cartItems, setOpenCart, openCart } = useContext(AuthContext);
+  if (!openCart) return null;
   return (
-    <div className={styles.container} id='cartContainer'>
-    <div className={styles.wrapper}>
-      <div>
-        {props.cartItems.length > 0 ? (
-          <div>
-            <header>
-              <BackButton />
-              <p>Your order</p>
-            </header>
-            <div className={styles.cartContent}>
-              <CartItem
-                updateState={props.updateState}
-                cartItems={props.cartItems}
-              />
-              <OrderForm
-                updateState={props.updateState}
-                cartItems={props.cartItems}
-              />
+    <div className={styles.container} onClick={() => setOpenCart!(false)}>
+      <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
+        <div>
+          {cartItems!.length > 0 ? (
+            <div>
+              <header>
+                <BackButton />
+                <p>Your order</p>
+              </header>
+              <div className={styles.cartContent}>
+                <CartItem />
+                <OrderForm />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className={styles.empty}>
-            <header>
-              <BackButton />
-              <p>Your cart is empty</p>
-            </header>
-          </div>
-        )}
+          ) : (
+            <div className={styles.empty}>
+              <header>
+                <BackButton />
+                <p>Your cart is empty</p>
+              </header>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

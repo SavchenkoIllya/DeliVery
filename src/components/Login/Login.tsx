@@ -1,8 +1,11 @@
-import React, { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { AuthContext } from "../../appContext";
 import { auth } from "../../firebase";
+//Styles
 import styles from "./Login.module.scss";
 
-export default function Login() {
+export const Login: React.FC = () => {
+  const { openLogin, setOpenLogin, setOpenSignup } = useContext(AuthContext);
   const [errorData, setError] = useState<{
     isError?: boolean;
     message?: string;
@@ -27,7 +30,7 @@ export default function Login() {
         let noProblem = { isError: false };
         setError((errorData) => ({ ...errorData, ...noProblem }));
         clearInputs();
-        showLogin();
+        setOpenLogin!(false);
       }
     });
     function clearInputs() {
@@ -37,22 +40,15 @@ export default function Login() {
       y.value = "";
     }
   }
-
-  function showLogin() {
-    document.querySelector(".Login")?.classList.toggle("show");
-    document.body.classList.toggle("scrollLock");
-  }
-
-  function logSignNav() {
-    document.querySelector(".Login")?.classList.toggle("show");
-    document.querySelector(".Signup")?.classList.toggle("show");
-  }
-
+  if (!openLogin) return null;
   return (
-    <div className={styles.wrapper} id="login">
-      <div className={styles.modal}>
+    <div className={styles.wrapper} onClick={() => setOpenLogin!(false)}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.iconWrapper}>
-          <i onClick={() => showLogin()} className={styles.ggClose}></i>
+          <i
+            onClick={() => setOpenLogin!(false)}
+            className={styles.ggClose}
+          ></i>
         </div>
         <p className={styles.heading}>Log in</p>
         <form onSubmit={(e) => signIn(e)}>
@@ -84,7 +80,12 @@ export default function Login() {
               ""
             )}
             <button onSubmit={(e) => signIn(e)}>Submit</button>
-            <a onClick={() => logSignNav()}>
+            <a
+              onClick={() => {
+                setOpenLogin!(false);
+                setOpenSignup!(true);
+              }}
+            >
               If you don't have account - Registrate faster!
             </a>
           </div>
@@ -92,4 +93,4 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
