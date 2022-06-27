@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { AuthContext } from "../../appContext";
 //styles
 import styles from "./Signup.module.scss";
 //auth
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function Signup() {
+export const Signup: React.FC = () => {
+  const { openSignup, setOpenLogin, setOpenSignup } = useContext(AuthContext);
   const [errorData, setError] = useState<{
     isError?: boolean;
     message?: string;
@@ -30,11 +32,10 @@ export default function Signup() {
     });
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         let noProblem = { isError: false };
         setError((errorData) => ({ ...errorData, ...noProblem }));
         clearInputs();
-        showSignup();
+        setOpenSignup!(false);
       }
     });
     function clearInputs() {
@@ -50,22 +51,15 @@ export default function Signup() {
       b.value = "";
     }
   }
-
-  function showSignup() {
-    document.querySelector(".Signup")?.classList.toggle("show");
-    document.body.classList.toggle("scrollLock");
-  }
-
-  function logSignNav() {
-    document.querySelector(".Login")?.classList.toggle("show");
-    document.querySelector(".Signup")?.classList.toggle("show");
-  }
-
+  if (!openSignup) return null;
   return (
-    <div className={styles.wrapper} id="signupWrapper">
-      <div className={styles.modal}>
+    <div className={styles.wrapper} onClick={() => setOpenSignup!(false)}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.iconWrapper}>
-          <i onClick={() => showSignup()} className={styles.ggClose}></i>
+          <i
+            onClick={() => setOpenSignup!(false)}
+            className={styles.ggClose}
+          ></i>
         </div>
         <p className={styles.heading}>Sign up</p>
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -127,7 +121,12 @@ export default function Signup() {
           )}
           <div className={styles.buttons}>
             <button onClick={(e) => handleSubmit(e)}>Sign up</button>
-            <a onClick={() => logSignNav()}>
+            <a
+              onClick={() => {
+                setOpenLogin!(true);
+                setOpenSignup!(false);
+              }}
+            >
               If you already have account - just Log in!
             </a>
           </div>
@@ -135,4 +134,4 @@ export default function Signup() {
       </div>
     </div>
   );
-}
+};

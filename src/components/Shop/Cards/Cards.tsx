@@ -1,92 +1,81 @@
-import React from "react";
+//Types
+import { Key, useContext } from "react";
+import { AuthContext } from "../../../appContext";
+import { Product } from "../../../Types/types";
 //styles
 import styles from "./Cards.module.scss";
 
-interface CardsProps {
-  data: any[];
-  updateState(a: any): void;
-  cartItems: any[];
-}
-
-export const Cards: React.FC<CardsProps> = (props) => {
-  let arr: {
-    name: string;
-    id: number;
-    description: string;
-    pic: string;
-    price: string;
-    weight: string;
-    quantaty: number;
-  }[] = [];
-
-  function addToCart(e: any) {
-    let elId = e.target.getAttribute("data-el-id");
-    let targetCI = props.cartItems.find((obj: any) => obj.id == elId);
-    let targetD = props.data.find((el: { id: number }) => el.id == elId);
+export const Cards: React.FC = () => {
+  const { data, setItems, cartItems } = useContext(AuthContext);
+  const addToCart = (id: number) => {
+    let arr: Product = [];
+    let targetCI = cartItems!.find((obj: any) => obj.id == id);
+    let targetD = data?.find((el: { id: number }) => el.id == id);
 
     if (JSON.stringify(targetCI) == undefined) {
-      arr.push(targetD);
-      arr.find((obj: any) => obj.id == elId)!.quantaty = 1;
-      props.updateState([...arr, ...props.cartItems]);
-    } else if (JSON.stringify(targetCI.name) === JSON.stringify(targetD.name)) {
-      targetCI.quantaty = ++targetCI.quantaty;
-      props.updateState([...arr, ...props.cartItems]);
+      arr.push(targetD!);
+      arr.find((obj: any) => obj.id == id)!.quantaty = 1;
+      setItems!([...arr, ...cartItems!]);
+      localStorage.setItem("cart", JSON.stringify([...arr, ...cartItems!]));
+    } else if (
+      JSON.stringify(targetCI?.name) === JSON.stringify(targetD?.name)
+    ) {
+      targetCI!.quantaty = ++targetCI!.quantaty;
+      setItems!([...arr, ...cartItems!]);
+      localStorage.setItem("cart", JSON.stringify([...arr, ...cartItems!]));
     }
-  }
+  };
 
-  function increase(e: any) {
-    let elId = e.target.getAttribute("data-el-id");
-    let target = props.cartItems.find((obj: any) => obj.id == elId);
-    target.quantaty = ++target.quantaty;
-    props.updateState([...props.cartItems]);
-  }
+  const increase = (id: number) => {
+    let target = cartItems!.find((obj: any) => (obj.id = id));
+    target!.quantaty = ++target!.quantaty;
+    setItems!([...cartItems!]);
+    localStorage.setItem("cart", JSON.stringify([...cartItems!]));
+  };
 
-  function decrease(e: any) {
-    let elId = e.target.getAttribute("data-el-id");
-    let targetCI = props.cartItems.find((obj: any) => obj.id == elId);
-
-    if (targetCI.quantaty > 1) {
-      targetCI.quantaty = --targetCI.quantaty;
-      props.updateState([...props.cartItems]);
-    } else if (targetCI.quantaty <= 1) {
-      let arr2: any[] = props.cartItems;
-      let newArr = arr2.filter((f) => {
-        return f !== props.data.find((el: { id: number }) => el.id == elId);
-      });
-      props.updateState(newArr);
+  const decrease = (id: number) => {
+    let targetCI = cartItems!.find((obj: any) => obj.id == id);
+    if (targetCI!.quantaty > 1) {
+      targetCI!.quantaty = --targetCI!.quantaty;
+      setItems!([...cartItems!]);
+      localStorage.setItem("cart", JSON.stringify([...cartItems!]));
+    } else if (targetCI!.quantaty <= 1) {
+      setItems!(cartItems!.filter((item: { id: number }) => item.id !== id));
+      let oldCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(oldCart.filter((item: { id: number }) => item.id !== id))
+      );
     }
-  }
+  };
 
   return (
     <div className={styles.block}>
-      {props.data?.map((el: any, index) => (
-        <div key={index} className={styles.wrapper}>
-          <img alt="" src={el.pic} />
-          <div className={styles.info}>
-            <p className={styles.header}>{el.name}</p>
-            <p>{el.description}</p>
-            <div className={styles.priceNgramms}>
-              <p>{el.price} €</p>
-              <p>{el.weight} gr</p>
-            </div>
-            {props.cartItems.find((obj: any) => obj.id == el.id) ? (
-              <div className={styles.handle}>
-                <a data-el-id={el.id} onClick={(e) => increase(e)}>
-                  +
-                </a>
-                <p>{el.quantaty}</p>
-                <a data-el-id={el.id} onClick={(e) => decrease(e)}>
-                  -
-                </a>
+      {data?.map((el: any, index: Key | null | undefined) => {
+        const { name, price, weight, id, pic, description } = el;
+        return (
+          <div key={index} className={styles.wrapper}>
+            <img alt={name} src={pic} />
+            <div className={styles.info}>
+              <p className={styles.header}>{name}</p>
+              <p>{description}</p>
+              <div className={styles.priceNgramms}>
+                <p>{price} €</p>
+                <p>{weight} gr</p>
               </div>
-            ) : (
-              <button data-el-id={el.id} onClick={(e) => addToCart(e)}>
-                Add to cart
-              </button>
-            )}
+              {cartItems!.find((obj: any) => obj.id == id) ? (
+                <div className={styles.handle}>
+                  <a onClick={() => increase(id)}>+</a>
+                  <p>{cartItems!.find((obj: any) => obj.id == id)?.quantaty}</p>
+                  <a onClick={() => decrease(id)}>-</a>
+                </div>
+              ) : (
+                <button onClick={() => addToCart(id)}>Add to cart</button>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

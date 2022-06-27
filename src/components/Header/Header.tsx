@@ -1,30 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
+import { useContext } from "react";
 //styles
 import styles from "./Header.module.scss";
 //components
-import LoggedOutNav from "./LoggedOutNav/LoggedOutNav";
+import { LoggedOutNav } from "./LoggedOutNav/LoggedOutNav";
 import LoggedInNav from "./LoggedInNav/LoggedInNav";
+//Types
+import { AuthContext } from "../../appContext";
 
-interface HeaderProps {
-  cartItems: any;
-}
-
-export const Header: React.FC<HeaderProps> = (props) => {
-  const auth = getAuth();
-  const [currentUser, setCurrentUser] = useState<any>(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user: any) => {
-      setCurrentUser(user);
-    });
-    return unsubscribe;
-  }, []);
-
-  function showCart() {
-    document.querySelector(".Cart")?.classList.toggle("show");
-  }
-
+export const Header: React.FC = () => {
+  const { cartItems, setOpenCart, currentUser } = useContext(AuthContext);
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
@@ -35,12 +19,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
         {currentUser ? <LoggedInNav /> : <LoggedOutNav />}
         <div className={styles.quantatyWrapper}>
           <div className={styles.cartWrapper}>
-            <a onClick={() => showCart()}>
+            <a onClick={() => setOpenCart!(true)}>
               <i className="gg-shopping-cart"></i>
             </a>
           </div>
-          {props.cartItems.length >= 0 ? (
-            <p className={styles.quantaty}>{props.cartItems.length}</p>
+          {cartItems!.length >= 1 ? (
+            <p className={styles.quantaty}>{cartItems!.length}</p>
           ) : (
             ""
           )}

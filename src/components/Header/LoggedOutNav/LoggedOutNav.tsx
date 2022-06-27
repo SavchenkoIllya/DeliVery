@@ -1,27 +1,18 @@
+import { useContext } from "react";
+import { AuthContext } from "../../../appContext";
 //styles
 import styles from "./LoggedOutNav.module.scss";
 
-function LoggedOutNav() {
-  function showLogin() {
-    document.querySelector(".Login")?.classList.toggle("show");
-    document.body.classList.toggle("scrollLock");
-  }
-
-  function showSignup() {
-    document.querySelector(".Signup")?.classList.toggle("show");
-    document.body.classList.toggle("scrollLock");
-  }
-
+export const LoggedOutNav: React.FC = () => {
+  const { setOpenLogin, setOpenSignup } = useContext(AuthContext);
   return (
-    <div>
-      <button onClick={() => showLogin()} className={styles.login}>
+    <>
+      <button onClick={() => setOpenLogin!(true)} className={styles.login}>
         Log in
       </button>
-      <button onClick={() => showSignup()} className={styles.sign}>
+      <button onClick={() => setOpenSignup!(true)} className={styles.sign}>
         Sign up
       </button>
-    </div>
+    </>
   );
-}
-
-export default LoggedOutNav;
+};
