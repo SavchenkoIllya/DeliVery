@@ -1,0 +1,133 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.wrapper {
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba($color: #000000, $alpha: 0.5);
+  color: $secColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: $mainColor;
+  }
+
+  .heading {
+    margin-top: 0px;
+    font-weight: 900;
+    font-size: 2rem;
+  }
+
+  .modal {
+    width: 600px;
+    height: fit-content;
+    background: $secColor;
+    padding: 20px 20px 20px 20px;
+    border-radius: 20px;
+
+    .iconWrapper {
+      display: flex;
+      justify-content: flex-end;
+
+      .ggClose {
+        color: $mainColor;
+        box-sizing: border-box;
+        position: relative;
+        display: block;
+        transform: scale(var(--ggs, 1));
+        width: 22px;
+        height: 22px;
+        border: 2px solid transparent;
+        border-radius: 40px;
+
+        &:hover {
+          cursor: pointer;
+          color: $thirdColor;
+        }
+      }
+
+      .ggClose::after,
+      .ggClose::before {
+        content: "";
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        width: 16px;
+        height: 2px;
+        background: currentColor;
+        transform: rotate(45deg);
+        border-radius: 5px;
+        top: 8px;
+        left: 1px;
+      }
+      .ggClose::after {
+        transform: rotate(-45deg);
+      }
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .username,
+    .password {
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 20px;
+      width: 80%;
+      align-items: center;
+
+      p {
+        margin-right: 20px;
+      }
+
+      input {
+        width: -webkit-fill-available;
+        padding: 10px;
+        border: $thirdColor solid 1px;
+        border-radius: 10px;
+        outline: none;
+      }
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      button {
+        width: fit-content;
+        margin: 10px 0px 20px 0px;
+        padding: 10px;
+        background: none;
+        color: $thirdColor;
+        border: $thirdColor solid 1px;
+        border-radius: 10px;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+          color: $secColor;
+          background: $thirdColor;
+          cursor: pointer;
+        }
+      }
+
+      a {
+        color: $mainColor;
+        text-decoration: underline $thirdColor;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

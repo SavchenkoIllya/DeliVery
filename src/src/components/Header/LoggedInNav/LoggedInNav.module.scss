@@ -1,0 +1,63 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-left: 20px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      color: $mainColor;
+      background: $secColor;
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    align-items: center;
+    background: $thirdColor;
+    padding: 10px;
+    border-radius: 15px;
+
+    p {
+      margin: 0px 0px 0px 10px;
+      color: $secColor;
+    }
+
+    .ggUser {
+      color: $secColor;
+      display: block;
+      transform: scale(var(--ggs, 1));
+      box-sizing: border-box;
+      width: 12px;
+      height: 18px;
+    }
+    .ggUser::after,
+    .ggUser::before {
+      content: "";
+      display: block;
+      box-sizing: border-box;
+      position: absolute;
+      border: 2px solid;
+    }
+    .ggUser::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 30px;
+      top: 0;
+      left: 2px;
+    }
+    .ggUser::after {
+      width: 12px;
+      height: 9px;
+      border-bottom: 0;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      top: 9px;
+    }
+  }
+}

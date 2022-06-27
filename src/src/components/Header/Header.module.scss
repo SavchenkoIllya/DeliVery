@@ -1,0 +1,78 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.wrapper {
+  width: 100%;
+  position: fixed;
+  background: $mainColor;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .logo {
+    margin-left: 100px;
+    color: $secColor;
+    font-weight: 900;
+    font-size: 1.5rem;
+
+    p {
+      margin: 0px;
+    }
+
+    .descriptor {
+      font-size: 0.75rem;
+      font-weight: 200;
+    }
+  }
+
+  .objects {
+    display: flex;
+    padding: 20px;
+    padding-right: 100px;
+    align-items: center;
+  }
+
+  button {
+    margin: 0px 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: none;
+    border: $secColor solid 1px;
+    color: $secColor;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .quantatyWrapper{
+    display: flex;
+
+
+    .quantaty {
+      color: $secColor;
+      margin: 0 0 0 5px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+  
+    .cartWrapper {
+      border: $secColor solid 1px;
+      padding: 10px;
+      border-radius: 50%;
+      transition: 0.3s ease-in-out;
+      margin-left: 50px;
+  
+      a {
+        color: $secColor;
+      }
+  
+      &:hover {
+        border: $thirdColor solid 1px;
+        background: $thirdColor;
+        cursor: pointer;
+      }
+    }
+  }
+}

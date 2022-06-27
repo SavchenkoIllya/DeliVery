@@ -1,0 +1,24 @@
+$mainColor: #121214;
+$secColor: #ffffff;
+$thirdColor: #e55125;
+
+.login {
+  background: none;
+  color: $thirdColor;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: $secColor;
+    background: $thirdColor;
+    border: $thirdColor solid 1px;
+  }
+}
+
+.sign {
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: $mainColor;
+    background: $secColor;
+  }
+}

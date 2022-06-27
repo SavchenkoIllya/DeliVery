@@ -1,0 +1,13 @@
+$mainColor: #121214;
+$secColor: #FFFFFF;
+$thirdColor: #E55125;
+
+.wrapper{
+
+    p{
+        margin: 0px;
+        padding: 20px;
+        background: $mainColor;
+        color: $thirdColor;
+    }
+}
