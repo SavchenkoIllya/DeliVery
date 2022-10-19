@@ -1,15 +1,17 @@
-import React, { useRef } from "react";
-import styles from "./OrderForm.module.scss";
+import { useContext, useRef } from "react";
+import { AuthContext } from "../../../../appContext";
+//Firebase
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { collection, addDoc } from "firebase/firestore";
+//Styles
+import styles from "./OrderForm.module.scss";
+import forkKnife from "../../../../../src/Assets/forkKnife.png";
+//Types
+import { Product } from "../../../../Types/types";
 
-interface OrderFormProps {
-  updateState(a: any): void;
-  cartItems: any[];
-}
-
-export const OrderForm: React.FC<OrderFormProps> = (props) => {
+export const OrderForm: React.FC = () => {
+  const { cartItems, setItems } = useContext(AuthContext);
   const db = firebase.firestore();
   const timeRef: any = useRef<string>(null);
   const adressRef: any = useRef<string>(null);
@@ -19,20 +21,28 @@ export const OrderForm: React.FC<OrderFormProps> = (props) => {
 
   async function sendData() {
     await addDoc(collection(db, "orders"), {
-      order: props.cartItems,
+      order: cartItems,
       name: userNameRef.current.value,
       telephone: telRef.current.value,
       time: timeRef.current.value,
       adress: adressRef.current.value,
       extra: extraRef.current.value,
     });
-    let emptyArr: any[] = [];
-    props.updateState(emptyArr);
+    let emptyArr: Product = [];
+    setItems!(emptyArr);
+    localStorage.setItem("cart", "[]");
   }
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.header}>Delivery information</p>
+      <div className={styles.devider}>
+        <div className={styles.hl}></div>
+        <img className={styles.forkKnife} src={forkKnife} alt="fork" />
+        <div className={styles.hl}></div>
+      </div>
+      <p className={styles.header}>
+        <span>Delivery</span> information:
+      </p>
       <form>
         <p>Your name and surname</p>
         <input
@@ -42,7 +52,12 @@ export const OrderForm: React.FC<OrderFormProps> = (props) => {
           ref={userNameRef}
         />
         <p>Your telephone number</p>
-        <input id="cTelephone" type={"tel"} placeholder="+491234567890" ref={telRef} />
+        <input
+          id="cTelephone"
+          type={"tel"}
+          placeholder="+491234567890"
+          ref={telRef}
+        />
         <p>Time</p>
         <input id="cTime" type={"time"} placeholder="" ref={timeRef} />
         <p>Adress</p>

@@ -1,16 +1,16 @@
-$mainColor: #121214;
-$secColor: #ffffff;
-$thirdColor: #e55125;
+@import "/src/variables";
 
 .login {
-  background: none;
-  color: $thirdColor;
+  background: $greenColor !important;
+  color: $secColor;
   transition: 0.3s ease-in-out;
+  border: none !important;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+  box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
 
   &:hover {
     color: $secColor;
-    background: $thirdColor;
-    border: $thirdColor solid 1px;
+    background: $hoverGreen !important;
   }
 }
 

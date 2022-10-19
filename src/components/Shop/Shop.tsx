@@ -1,47 +1,17 @@
-import React, { useEffect, useState } from "react";
 //styles
 import styles from "./Shop.module.scss";
-//firebase
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
-import { Cards } from "./Cards/Cards";
 //components
+import { Cards } from "./Cards/Cards";
 
-interface ShopProps {
-  updateState(a: any): void;
-  cartItems: any;
-}
-
-export const Shop: React.FC<ShopProps> = (props) => {
-  const db = firebase.firestore().collection("products");
-  const [data, setData] = useState<any[]>([]);
-  const [loader, setLoader] = useState<boolean>(true);
-
-  function GetData() {
-    db.onSnapshot(async (querySnapshot) => {
-      const items: any = [];
-      await querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setData(items);
-      setLoader(false);
-    });
-  }
-
-  useEffect(() => {
-    GetData();
-  }, []);
-
+export const Shop: React.FC = () => {
   return (
-    <div>
-      <h3 className={styles.headling}>Burgers</h3>
+    <>
+      <h3 id="menu" className={styles.headling}>
+        Burgers <span>menu</span>
+      </h3>
       <div className={styles.wrapper}>
-        <Cards
-          data={data}
-          updateState={props.updateState}
-          cartItems={props.cartItems}
-        />
+        <Cards />
       </div>
-    </div>
+    </>
   );
 };

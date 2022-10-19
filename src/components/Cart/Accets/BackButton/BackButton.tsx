@@ -1,15 +1,13 @@
-import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../../../appContext";
 import styles from "./BackButton.module.scss";
 
-export default function BackButton() {
-  function hideCart() {
-    document.querySelector(".Cart")?.classList.toggle("show");
-  }
-
+export const BackButton: React.FC = () => {
+  const { setOpenCart } = useContext(AuthContext);
   return (
-    <button onClick={() => hideCart()} className={styles.back}>
+    <button className={styles.back} onClick={() => setOpenCart!(false)}>
       <i className={styles.ggClose}></i>
       Close cart
     </button>
   );
-}
+};

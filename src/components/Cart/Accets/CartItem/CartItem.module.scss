@@ -1,69 +1,143 @@
-$mainColor: #121214;
-$secColor: #ffffff;
-$thirdColor: #e55125;
+@import "/src/variables";
 
-.mainWrapper{
+.mainWrapper {
   .cartItem {
-    padding: 10px;
+    padding: $smallGap;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    border-bottom: $thirdColor solid 1px;
-  
+    justify-content: space-between;
+
     &:hover {
       background: #545457;
     }
-  
-    .ggClose {
-      color: $thirdColor;
-      box-sizing: border-box;
-      position: relative;
-      display: block;
-      transform: scale(var(--ggs, 1));
-      width: 22px;
-      height: 22px;
-      border: 2px solid transparent;
-      border-radius: 40px;
-      transition: 0.3s ease-in-out;
-  
-      &:hover {
-        color: $secColor;
-        cursor: pointer;
+
+    .itemInfo {
+      display: flex;
+      text-align: left;
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+      }
+
+      p {
+        min-width: 51px;
+        align-self: center;
+        margin-left: 20px;
       }
     }
-  
-    .ggClose::after,
-    .ggClose::before {
-      content: "";
-      display: block;
-      box-sizing: border-box;
-      position: absolute;
-      width: 16px;
-      height: 2px;
-      background: currentColor;
-      transform: rotate(45deg);
-      border-radius: 5px;
-      top: 8px;
-      left: 1px;
-    }
-    .ggClose::after {
-      transform: rotate(-45deg);
-    }
   }
-  
-  .itemInfo {
-    text-align: left;
+  .name {
+    max-width: 138px;
   }
-  
-  .price {
+
+  .controllers {
     display: flex;
-    justify-content: space-evenly;
-    background: $secColor;
-  
-    p {
-      color: $mainColor !important;
-      font-size: 1.2rem;
-      font-weight: 900;
+    align-items: center;
+
+    .ammount {
+      display: flex;
+      align-items: center;
+
+      p {
+        margin: 0px 10px;
+        font-weight: 800;
+      }
+
+      a {
+        background: $thirdColor;
+        color: $secColor;
+        padding: 2px 6px;
+        border-radius: 100%;
+        border: $thirdColor solid 1px;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+          background: $thirdColor;
+          color: $secColor;
+          cursor: pointer;
+        }
+      }
+      .gray {
+        padding: 3px 8px;
+        background: #3d3d3d;
+        border: #3d3d3d solid 1px;
+        border: none;
+      }
+    }
+
+    .medium {
+      width: 50px;
+    }
+  }
+
+  .hl {
+    border-top: 1px solid $lighterGray;
+    width: 80%;
+    margin: auto;
+  }
+
+  .price {
+    margin: $smallGap;
+    font-size: $smallHeading;
+    display: flex;
+    justify-content: space-between;
+    font-weight: $bold;
+  }
+
+  .ggClose {
+    color: $thirdColor;
+    box-sizing: border-box;
+    transform: scale(var(--ggs, 1));
+    width: 22px;
+    height: 22px;
+    border: 2px solid transparent;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .ggClose::after,
+  .ggClose::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: currentColor;
+    transform: rotate(45deg);
+    top: 8px;
+    left: 1px;
+  }
+  .ggClose::after {
+    transform: rotate(-45deg);
+  }
+}
+
+@media (max-width: 450px) {
+  .mainWrapper {
+    .cartItem {
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: unset;
+
+      .itemInfo {
+        justify-content: space-between;
+
+        p {
+          align-self: center;
+        }
+        .name {
+          max-width: unset;
+        }
+      }
+
+      .controllers {
+        margin-top: $smallGap;
+        justify-content: center;
+      }
     }
   }
 }

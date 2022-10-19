@@ -1,9 +1,7 @@
-$mainColor: #121214;
-$secColor: #ffffff;
-$thirdColor: #e55125;
+@import "/src/variables";
 
 .wrapper {
-  z-index: 3;
+  z-index: 10;
   position: fixed;
   top: 0;
   right: 0;
@@ -16,19 +14,18 @@ $thirdColor: #e55125;
   align-items: center;
 
   p {
-    color: $mainColor;
+    color: $secColor;
   }
 
   .heading {
-    margin-top: 0px;
-    font-weight: 900;
-    font-size: 2rem;
+    margin-bottom: $smallGap;
+    font-weight: $bold;
+    font-size: $headling;
   }
 
   .modal {
-    width: 600px;
     height: fit-content;
-    background: $secColor;
+    background: $lighterGray;
     padding: 20px 20px 20px 20px;
     border-radius: 20px;
 
@@ -37,7 +34,7 @@ $thirdColor: #e55125;
       justify-content: flex-end;
 
       .ggClose {
-        color: $mainColor;
+        color: $secColor;
         box-sizing: border-box;
         position: relative;
         display: block;
@@ -73,17 +70,16 @@ $thirdColor: #e55125;
     }
 
     .form {
+      margin: 0 40px;
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
 
     .username,
     .password {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
       margin-bottom: 20px;
-      width: 80%;
       align-items: center;
 
       p {
@@ -91,11 +87,16 @@ $thirdColor: #e55125;
       }
 
       input {
-        width: -webkit-fill-available;
+        background: #3d3d3d;
+        width: 300px;
         padding: 10px;
-        border: $thirdColor solid 1px;
+        border: none;
         border-radius: 10px;
         outline: none;
+
+        &::placeholder {
+          color: #c9c9c9;
+        }
       }
     }
     .buttons {
@@ -103,29 +104,60 @@ $thirdColor: #e55125;
       flex-direction: column;
       align-items: center;
 
-      button {
+      .errorMessage{
+        color:red;
+        max-width: 300px;
+      }
+
+      input[type=submit] {
         width: fit-content;
         margin: 10px 0px 20px 0px;
         padding: 10px;
-        background: none;
-        color: $thirdColor;
-        border: $thirdColor solid 1px;
+        background: $greenColor;
+        color: $secColor;
+        border: none;
         border-radius: 10px;
         transition: 0.3s ease-in-out;
+        -webkit-box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+        box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+
+        &:disabled{
+          background: #3d3d3d;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+
+          &:hover{
+            background: #3d3d3d;
+            cursor: auto;
+          }
+        }
 
         &:hover {
           color: $secColor;
-          background: $thirdColor;
+          background: $hoverGreen;
           cursor: pointer;
         }
       }
 
       a {
-        color: $mainColor;
+        color: $secColor;
         text-decoration: underline $thirdColor;
 
         &:hover {
           cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .wrapper {
+    .modal {
+      .password,
+      .username {
+        input {
+          width: auto;
         }
       }
     }

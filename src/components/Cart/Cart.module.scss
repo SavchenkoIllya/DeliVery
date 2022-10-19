@@ -1,9 +1,7 @@
-$mainColor: #121214;
-$secColor: #ffffff;
-$thirdColor: #e55125;
+@import "/src/variables";
 
-.container{
-  z-index: 2;
+.container {
+  z-index: 10;
   position: fixed;
   top: 0;
   right: 0;
@@ -16,15 +14,13 @@ $thirdColor: #e55125;
     height: 100%;
     right: 0;
     background-color: $mainColor;
-    -webkit-transform: translateZ(0);
     visibility: visible;
-    -webkit-backface-visibility: hidden;
     -webkit-box-shadow: -20px 0px 40px 10px rgba(0, 0, 0, 0.5);
     box-shadow: -20px 0px 40px 10px rgba(0, 0, 0, 0.5);
     overflow: auto;
     animation-name: show;
     animation-duration: 500ms;
-  
+
     @keyframes show {
       0% {
         right: -500px;
@@ -33,82 +29,49 @@ $thirdColor: #e55125;
         right: 0;
       }
     }
-  
+
     .empty {
       p {
+        text-align: center;
         line-height: 80vh;
+
+        span {
+          color: $thirdColor;
+        }
       }
     }
-  
+
     header {
-      margin: 20px 0px 20px;
+      margin-top: 20px;
       color: $secColor;
-      font-weight: 900;
-      font-size: 1.5rem;
-      text-transform: uppercase;
-  
-      p {
-        letter-spacing: 0.1rem;
+      font-weight: $bold;
+      font-size: $smallHeading;
+      text-align: left;
+
+      .headling {
+        margin: $smallGap;
+        margin-bottom: 0;
+
+        span {
+          color: $thirdColor;
+        }
       }
     }
-  
-    img {
-      width: 50px;
-      height: 50px;
+  }
+}
+
+@media (max-width: 1090px) {
+  .container {
+    .wrapper {
+      width: 50%;
     }
-  
-    a,
-    p {
-      color: $secColor;
-    }
-  
-    a {
-      padding: 8px 12px;
-      color: $thirdColor;
-      border: $thirdColor solid 1px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: 0.3s ease-in-out;
-  
-      &:hover {
-        color: $secColor;
-        background: $thirdColor;
-      }
-    }
-    .ggClose {
-      color: $thirdColor;
-      box-sizing: border-box;
-      position: relative;
-      display: block;
-      transform: scale(var(--ggs, 1));
-      width: 22px;
-      height: 22px;
-      border: 2px solid transparent;
-      border-radius: 40px;
-      transition: 0.3s ease-in-out;
-  
-      &:hover {
-        color: $secColor;
-        cursor: pointer;
-      }
-    }
-  
-    .ggClose::after,
-    .ggClose::before {
-      content: "";
-      display: block;
-      box-sizing: border-box;
-      position: absolute;
-      width: 16px;
-      height: 2px;
-      background: currentColor;
-      transform: rotate(45deg);
-      border-radius: 5px;
-      top: 8px;
-      left: 1px;
-    }
-    .ggClose::after {
-      transform: rotate(-45deg);
+  }
+}
+
+@media (max-width: 780px) {
+  .container {
+    .wrapper {
+      width: 100%;
     }
   }
 }

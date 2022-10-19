@@ -1,18 +1,17 @@
-$mainColor: #121214;
-$secColor: #ffffff;
-$thirdColor: #e55125;
+@import "/src/variables";
 
 .headling {
-  margin: 0px;
-  padding: 32px 32px 0px 32px;
   background: $mainColor;
   color: $secColor;
-  font-weight: 900;
-  font-size: 3rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2rem;
+  font-weight: $bold;
+  font-size: $headling;
+
+  span {
+    color: $thirdColor;
+  }
 }
 
 .wrapper {
   background: $mainColor;
+  margin-bottom: $bigGap;
 }

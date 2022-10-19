@@ -1,14 +1,20 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { AuthContext } from "../../appContext";
 //styles
 import styles from "./Signup.module.scss";
 //auth
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function Signup() {
+export const Signup: React.FC = () => {
+  const { openSignup, setOpenLogin, setOpenSignup } = useContext(AuthContext);
   const [errorData, setError] = useState<{
     isError?: boolean;
     message?: string;
   }>({ isError: false, message: "" });
+
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [pasErrorMessage, setPasErrorMessage] = useState("");
+
   //Refs
   const emailRef: any = useRef<string>(null);
   const passwordRef: any = useRef<string>(null);
@@ -20,52 +26,59 @@ export default function Signup() {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    createUserWithEmailAndPassword(
-      auth,
-      emailRef.current.value,
-      passwordRef.current.value
-    ).catch(function (error) {
-      let problem = { isError: true, message: error.message };
+    if (emailRef.current.value !== true) {
+      let problem = {
+        isError: true,
+        message: "This fields shouldn't be empty",
+      };
       setError((errorData) => ({ ...errorData, ...problem }));
-    });
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user);
-        let noProblem = { isError: false };
-        setError((errorData) => ({ ...errorData, ...noProblem }));
-        clearInputs();
-        showSignup();
-      }
-    });
-    function clearInputs() {
-      let x: any = document.getElementById("sEmail");
-      let y: any = document.getElementById("sPassword");
-      let z: any = document.getElementById("sUserName");
-      let a: any = document.getElementById("sTel");
-      let b: any = document.getElementById("sDate");
-      x.value = "";
-      y.value = "";
-      z.value = "";
-      a.value = "";
-      b.value = "";
+      setEmailErrorMessage("This fields shouldn't be empty");
+    }
+    if (passwordRef.current.value !== true) {
+      let problem = {
+        isError: true,
+        message: "This fields shouldn't be empty",
+      };
+      setError((errorData) => ({ ...errorData, ...problem }));
+      setPasErrorMessage("This fields shouldn't be empty");
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      ).catch(function (error) {
+        let problem = { isError: true, message: error.message };
+        setError((errorData) => ({ ...errorData, ...problem }));
+      });
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          let noProblem = { isError: false };
+          setError((errorData) => ({ ...errorData, ...noProblem }));
+          let x: any = document.getElementById("sEmail");
+          let y: any = document.getElementById("sPassword");
+          let z: any = document.getElementById("sUserName");
+          let a: any = document.getElementById("sTel");
+          let b: any = document.getElementById("sDate");
+          x.value = "";
+          y.value = "";
+          z.value = "";
+          a.value = "";
+          b.value = "";
+          setOpenSignup!(false);
+        }
+      });
     }
   }
 
-  function showSignup() {
-    document.querySelector(".Signup")?.classList.toggle("show");
-    document.body.classList.toggle("scrollLock");
-  }
-
-  function logSignNav() {
-    document.querySelector(".Login")?.classList.toggle("show");
-    document.querySelector(".Signup")?.classList.toggle("show");
-  }
-
+  if (!openSignup) return null;
   return (
-    <div className={styles.wrapper} id="signupWrapper">
-      <div className={styles.modal}>
+    <div className={styles.wrapper} onClick={() => setOpenSignup!(false)}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.iconWrapper}>
-          <i onClick={() => showSignup()} className={styles.ggClose}></i>
+          <i
+            onClick={() => setOpenSignup!(false)}
+            className={styles.ggClose}
+          ></i>
         </div>
         <p className={styles.heading}>Sign up</p>
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -73,6 +86,7 @@ export default function Signup() {
             <div className={styles.email}>
               <p>Email</p>
               <input
+                className={emailErrorMessage && styles.errorMessage}
                 id="sEmail"
                 type={"email"}
                 placeholder="example@example.com"
@@ -83,6 +97,7 @@ export default function Signup() {
             <div className={styles.password}>
               <p>Password</p>
               <input
+                className={pasErrorMessage && styles.errorMessage}
                 id="sPassword"
                 type={"password"}
                 ref={passwordRef}
@@ -120,14 +135,17 @@ export default function Signup() {
               />
             </div>
           </div>
-          {errorData.isError === true ? (
+          {errorData.isError === true && (
             <p style={{ color: "red" }}>{errorData.message}</p>
-          ) : (
-            ""
           )}
           <div className={styles.buttons}>
             <button onClick={(e) => handleSubmit(e)}>Sign up</button>
-            <a onClick={() => logSignNav()}>
+            <a
+              onClick={() => {
+                setOpenLogin!(true);
+                setOpenSignup!(false);
+              }}
+            >
               If you already have account - just Log in!
             </a>
           </div>
@@ -135,4 +153,4 @@ export default function Signup() {
       </div>
     </div>
   );
-}
+};
