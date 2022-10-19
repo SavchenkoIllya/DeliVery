@@ -18,9 +18,9 @@ export const Cart: React.FC = () => {
             <div>
               <header>
                 <BackButton />
-                <p>Your order</p>
+                <p className={styles.headling}><span>Your</span> order:</p>
               </header>
-              <div className={styles.cartContent}>
+              <div>
                 <CartItem />
                 <OrderForm />
               </div>
@@ -29,7 +29,9 @@ export const Cart: React.FC = () => {
             <div className={styles.empty}>
               <header>
                 <BackButton />
-                <p>Your cart is empty</p>
+                <p>
+                  Your cart is <span>empty :(</span>
+                </p>
               </header>
             </div>
           )}

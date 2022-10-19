@@ -1,6 +1,7 @@
 import { Key, useContext } from "react";
 import { AuthContext } from "../../../../appContext";
 import { auth } from "../../../../firebase";
+import defaultPicture from "../../../../Assets/defaultPicture.jpg";
 //Styles
 import styles from "./CartItem.module.scss";
 
@@ -42,25 +43,34 @@ export const CartItem: React.FC = () => {
       {cartItems!.map((el: any, index: Key | null | undefined) => {
         const { name, quantaty, price, weight, id, pic } = el;
         return (
-          <div key={index} className={styles.cartItem}>
-            <img alt={name} src={pic} />
-            <div className={styles.itemInfo}>
-              <p>{name}</p>
-              <p>{weight} gr</p>
+          <>
+            <div key={index} className={styles.cartItem}>
+              <div className={styles.itemInfo}>
+                <img alt={name} src={pic || defaultPicture} />
+                <p className={styles.name}>{name}</p>
+                <p>{weight} gr</p>
+              </div>
+              <div className={styles.controllers}>
+                <div className={styles.ammount}>
+                  <a onClick={() => increase(id)}>+</a>
+                  <p>{quantaty}</p>
+                  <a className={styles.gray} onClick={() => decrease(id)}>
+                    -
+                  </a>
+                </div>
+                <p className={styles.medium}>{quantaty * price} €</p>
+                <i
+                  onClick={() => removeFromCart(id)}
+                  className={styles.ggClose}
+                ></i>
+              </div>
             </div>
-            <a onClick={() => increase(id)}>+</a>
-            <p>{quantaty}</p>
-            <a onClick={() => decrease(id)}>-</a>
-            <p>{quantaty * price} €</p>
-            <i
-              onClick={() => removeFromCart(id)}
-              className={styles.ggClose}
-            ></i>
-          </div>
+            <div className={styles.hl}></div>
+          </>
         );
       })}
       <div className={styles.price}>
-        <p>Total price</p>
+        <p>Total price:</p>
         <p>{auth.currentUser ? (sum * 0.9).toFixed(2) : sum} €</p>
       </div>
     </div>

@@ -23,10 +23,8 @@ export const Header: React.FC = () => {
               <i className="gg-shopping-cart"></i>
             </a>
           </div>
-          {cartItems!.length >= 1 ? (
+          {cartItems!.length >= 1 && (
             <p className={styles.quantaty}>{cartItems!.length}</p>
-          ) : (
-            ""
           )}
         </div>
       </div>

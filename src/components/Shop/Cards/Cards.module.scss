@@ -1,92 +1,119 @@
-$mainColor: #121214;
-$secColor: #ffffff;
-$thirdColor: #e55125;
+@import "src/variables";
 
-.block{
-  padding: 50px;
+.block {
+  max-width: 1200px;
+  margin: auto;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  
-  .wrapper {
-    margin: 20px;
-    margin-bottom: 50px;
-    background: $secColor;
-    width: 500px;
+  gap: $smallGap;
+  margin-block: $smallGap;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: clamp(20rem, calc(20rem + 2vw), 22rem);
+    overflow: hidden;
+    background: $lighterGray;
     border-radius: 30px;
-    transition: 0.3s ease-in-out;
-  
-    &:hover {
-      -webkit-box-shadow: 0px 0px 10px 5px rgba(229, 81, 37, 0.5);
-      box-shadow: 0px 0px 10px 10px rgba(229, 81, 37, 0.3);
-      border: $thirdColor solid 1px;
-    }
-  
-    .handle{
-      padding-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      p{
-        margin: 0px 30px;
-      }
-
-      a{
-        padding: 12px;
-        border-radius: 5px;
-        border: $thirdColor solid 1px;
-        transition: 0.3s ease-in-out;
-
-        &:hover {
-          background: $thirdColor;
-          color: $secColor;
-          cursor: pointer;
-        }
-      }
-    }
 
     img {
-      width: -webkit-fill-available;
-      height: auto;
-      border-radius: 29px 29px 0px 0px;
+      height: 250px;
+      width: 100%;
+      object-fit: cover;
     }
-  
-    .header {
-      font-size: 1.5rem;
-      font-weight: 900;
-    }
-  
-    .info {
-      margin: 20px;
-    }
-  
-    p {
-      color: $mainColor;
-      text-align: justify;
-    }
-  
-    button {
-      margin-bottom: 20px;
-      padding: 10px;
-      background: none;
-      color: $thirdColor;
-      border: $thirdColor solid 1px;
-      border-radius: 10px;
-      transition: 0.3s ease-in-out;
-  
-      &:hover {
+
+    .cardBody {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      p {
+        text-align: justify;
+        color: $smallTextGray;
+      }
+
+      .headling {
         color: $secColor;
-        background: $thirdColor;
-        cursor: pointer;
+        font-weight: $bold;
+        font-size: $smallHeading;
       }
     }
-  
-    .priceNgramms {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.2rem;
-      font-weight: 900;
+
+    .cardFooter {
+      padding: 0 1rem 1rem 1rem;
+      margin-top: auto;
+
+      .cart {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .ammount {
+        display: flex;
+        align-items: center;
+
+        p {
+          margin: 0px 10px;
+          font-weight: 800;
+        }
+
+        a {
+          background: $thirdColor;
+          color: $secColor;
+          padding: 2px 6px;
+          border-radius: 100%;
+          border: $thirdColor solid 1px;
+          transition: 0.3s ease-in-out;
+
+          &:hover {
+            background: $thirdColor;
+            color: $secColor;
+            cursor: pointer;
+          }
+        }
+        .gray {
+          padding: 3px 8px;
+          background: #3d3d3d;
+          border: #3d3d3d solid 1px;
+          border: none;
+        }
+      }
+
+      .cartUnactive {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      button {
+        display: flex;
+        margin-top: auto;
+        padding: 8px;
+        background: $greenColor;
+        cursor: pointer;
+        border-radius: 30px;
+        transition: 0.3s ease-in-out;
+        -webkit-box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+        box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+
+        p {
+          color: $secColor !important;
+          margin-bottom: 0px;
+          padding: 4px 8px;
+        }
+
+        :nth-child(2) {
+          border-left: #4ca642 solid 2px;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background-color: $hoverGreen;
+        }
+      }
     }
   }
 }

@@ -11,6 +11,10 @@ export const Signup: React.FC = () => {
     isError?: boolean;
     message?: string;
   }>({ isError: false, message: "" });
+
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [pasErrorMessage, setPasErrorMessage] = useState("");
+
   //Refs
   const emailRef: any = useRef<string>(null);
   const passwordRef: any = useRef<string>(null);
@@ -22,35 +26,50 @@ export const Signup: React.FC = () => {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    createUserWithEmailAndPassword(
-      auth,
-      emailRef.current.value,
-      passwordRef.current.value
-    ).catch(function (error) {
-      let problem = { isError: true, message: error.message };
+    if (emailRef.current.value !== true) {
+      let problem = {
+        isError: true,
+        message: "This fields shouldn't be empty",
+      };
       setError((errorData) => ({ ...errorData, ...problem }));
-    });
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        let noProblem = { isError: false };
-        setError((errorData) => ({ ...errorData, ...noProblem }));
-        clearInputs();
-        setOpenSignup!(false);
-      }
-    });
-    function clearInputs() {
-      let x: any = document.getElementById("sEmail");
-      let y: any = document.getElementById("sPassword");
-      let z: any = document.getElementById("sUserName");
-      let a: any = document.getElementById("sTel");
-      let b: any = document.getElementById("sDate");
-      x.value = "";
-      y.value = "";
-      z.value = "";
-      a.value = "";
-      b.value = "";
+      setEmailErrorMessage("This fields shouldn't be empty");
+    }
+    if (passwordRef.current.value !== true) {
+      let problem = {
+        isError: true,
+        message: "This fields shouldn't be empty",
+      };
+      setError((errorData) => ({ ...errorData, ...problem }));
+      setPasErrorMessage("This fields shouldn't be empty");
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      ).catch(function (error) {
+        let problem = { isError: true, message: error.message };
+        setError((errorData) => ({ ...errorData, ...problem }));
+      });
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          let noProblem = { isError: false };
+          setError((errorData) => ({ ...errorData, ...noProblem }));
+          let x: any = document.getElementById("sEmail");
+          let y: any = document.getElementById("sPassword");
+          let z: any = document.getElementById("sUserName");
+          let a: any = document.getElementById("sTel");
+          let b: any = document.getElementById("sDate");
+          x.value = "";
+          y.value = "";
+          z.value = "";
+          a.value = "";
+          b.value = "";
+          setOpenSignup!(false);
+        }
+      });
     }
   }
+
   if (!openSignup) return null;
   return (
     <div className={styles.wrapper} onClick={() => setOpenSignup!(false)}>
@@ -67,6 +86,7 @@ export const Signup: React.FC = () => {
             <div className={styles.email}>
               <p>Email</p>
               <input
+                className={emailErrorMessage && styles.errorMessage}
                 id="sEmail"
                 type={"email"}
                 placeholder="example@example.com"
@@ -77,6 +97,7 @@ export const Signup: React.FC = () => {
             <div className={styles.password}>
               <p>Password</p>
               <input
+                className={pasErrorMessage && styles.errorMessage}
                 id="sPassword"
                 type={"password"}
                 ref={passwordRef}
@@ -114,10 +135,8 @@ export const Signup: React.FC = () => {
               />
             </div>
           </div>
-          {errorData.isError === true ? (
+          {errorData.isError === true && (
             <p style={{ color: "red" }}>{errorData.message}</p>
-          ) : (
-            ""
           )}
           <div className={styles.buttons}>
             <button onClick={(e) => handleSubmit(e)}>Sign up</button>

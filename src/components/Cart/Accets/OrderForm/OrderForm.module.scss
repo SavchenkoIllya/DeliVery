@@ -1,16 +1,40 @@
-$mainColor: #121214;
-$secColor: #ffffff;
-$thirdColor: #e55125;
+@import "/src/variables";
 
 .wrapper {
+  .devider {
+    display: flex;
+    justify-content: center;
+    margin: $smallGap;
+    margin-top: 0;
+
+    .forkKnife {
+      padding: 0.5rem;
+      background-color: $greenColor;
+      border-radius: 10px;
+      width: 30px;
+      -webkit-box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+      box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+    }
+
+    .hl {
+      margin: auto;
+      width: 100%;
+      border-top: 3px solid $greenColor;
+      -webkit-box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+      box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+    }
+  }
+
   .header {
-    margin: 0px 0px 10px 0px;
-    padding: 10px;
-    font-weight: 900;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    background: $thirdColor;
+    margin: $smallGap;
+    margin-top: 0;
+    text-align: left;
+    font-weight: $bold;
+    font-size: $smallHeading;
+
+    span {
+      color: $thirdColor;
+    }
   }
 
   form {
@@ -18,32 +42,45 @@ $thirdColor: #e55125;
     flex-direction: column;
     align-items: center;
 
+    p {
+      margin-left: $smallGap;
+      margin-bottom: 0.5rem;
+      align-self: flex-start;
+    }
+
     input,
     textarea {
-      justify-content: space-evenly;
-      margin-bottom: 10px;
+      background: $lighterGray;
+      border: none;
+      margin-bottom: $smallGap;
       padding: 10px;
       width: 80%;
       align-items: center;
-      border: $thirdColor solid 1px;
       border-radius: 10px;
       outline: none;
+      resize: vertical;
+
+      &::placeholder {
+        color: #c9c9c9;
+      }
     }
   }
 
   .button {
     width: fit-content;
-    margin: 10px 0px 20px 0px;
-    padding: 10px;
-    background: none;
-    color: $thirdColor;
-    border: $thirdColor solid 1px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: $greenColor;
+    color: $secColor;
+    border: none;
     border-radius: 10px;
     transition: 0.3s ease-in-out;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
+    box-shadow: 0px 0px 15px 0px rgba(86, 188, 76, 0.54);
 
     &:hover {
       color: $secColor;
-      background: $thirdColor;
+      background: $hoverGreen;
       cursor: pointer;
     }
   }

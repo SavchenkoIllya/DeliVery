@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import { Product } from "./Types/types";
 import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
 
 export const AuthContext = React.createContext<any>(null);
 
@@ -23,11 +22,13 @@ export function AuthProvider({ children }: any) {
     });
     return unsubscribe;
   }, []);
+
   useEffect(() => {
     openSignup || openLogin
       ? (document.body.style.overflow = "hidden")
       : (document.body.style.overflow = "scroll");
   }, [openSignup, openLogin]);
+
   useEffect(() => {
     db.onSnapshot(async (querySnapshot) => {
       const items: any = [];
@@ -50,6 +51,5 @@ export function AuthProvider({ children }: any) {
     setOpenSignup,
     setOpenCart,
   };
-
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

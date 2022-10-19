@@ -1,6 +1,7 @@
-//Types
 import { Key, useContext } from "react";
 import { AuthContext } from "../../../appContext";
+import defaultPicture from "../../../Assets/defaultPicture.jpg";
+//Types
 import { Product } from "../../../Types/types";
 //styles
 import styles from "./Cards.module.scss";
@@ -54,24 +55,46 @@ export const Cards: React.FC = () => {
       {data?.map((el: any, index: Key | null | undefined) => {
         const { name, price, weight, id, pic, description } = el;
         return (
-          <div key={index} className={styles.wrapper}>
-            <img alt={name} src={pic} />
-            <div className={styles.info}>
-              <p className={styles.header}>{name}</p>
-              <p>{description}</p>
-              <div className={styles.priceNgramms}>
-                <p>{price} €</p>
-                <p>{weight} gr</p>
+          <div key={index} className={styles.card}>
+            <div>
+              <img alt={name} src={pic || defaultPicture} />
+            </div>
+            <div className={styles.cardBody}>
+              <p className={styles.headling}>
+                {name.length > 23 ? name.substring(0, 22).concat("...") : name}
+              </p>
+              <p>
+                {description.length > 300
+                  ? weight +
+                    "gr. " +
+                    description.substring(0, 299).concat("...")
+                  : description}
+              </p>
+            </div>
+            <div className={styles.cardFooter}>
+              <div
+                className={
+                  cartItems!.find((obj: any) => obj.id == id)?.quantaty
+                    ? styles.cart
+                    : styles.cartUnactive
+                }
+              >
+                {cartItems!.find((obj: any) => obj.id == id) && (
+                  <div className={styles.ammount}>
+                    <a onClick={() => increase(id)}>+</a>
+                    <p>
+                      {cartItems!.find((obj: any) => obj.id == id)?.quantaty}
+                    </p>
+                    <a className={styles.gray} onClick={() => decrease(id)}>
+                      -
+                    </a>
+                  </div>
+                )}
+                <button onClick={() => addToCart(id)}>
+                  <p>Add to cart</p>
+                  <p>{price} €</p>
+                </button>
               </div>
-              {cartItems!.find((obj: any) => obj.id == id) ? (
-                <div className={styles.handle}>
-                  <a onClick={() => increase(id)}>+</a>
-                  <p>{cartItems!.find((obj: any) => obj.id == id)?.quantaty}</p>
-                  <a onClick={() => decrease(id)}>-</a>
-                </div>
-              ) : (
-                <button onClick={() => addToCart(id)}>Add to cart</button>
-              )}
             </div>
           </div>
         );

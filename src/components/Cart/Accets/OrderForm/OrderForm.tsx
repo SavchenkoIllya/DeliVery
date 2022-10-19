@@ -6,6 +6,7 @@ import "firebase/compat/firestore";
 import { collection, addDoc } from "firebase/firestore";
 //Styles
 import styles from "./OrderForm.module.scss";
+import forkKnife from "../../../../../src/Assets/forkKnife.png";
 //Types
 import { Product } from "../../../../Types/types";
 
@@ -34,7 +35,14 @@ export const OrderForm: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.header}>Delivery information</p>
+      <div className={styles.devider}>
+        <div className={styles.hl}></div>
+        <img className={styles.forkKnife} src={forkKnife} alt="fork" />
+        <div className={styles.hl}></div>
+      </div>
+      <p className={styles.header}>
+        <span>Delivery</span> information:
+      </p>
       <form>
         <p>Your name and surname</p>
         <input

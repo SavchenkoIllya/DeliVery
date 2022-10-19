@@ -10,8 +10,8 @@ export const Login: React.FC = () => {
     isError?: boolean;
     message?: string;
   }>({ isError: false, message: "" });
-  const emailRef: any = useRef<any>(null);
-  const passwordRef: any = useRef<any>(null);
+  const emailRef: any = useRef<string>(null);
+  const passwordRef: any = useRef<string>(null);
 
   function signIn(e: any) {
     e.preventDefault();
@@ -26,7 +26,6 @@ export const Login: React.FC = () => {
       });
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         let noProblem = { isError: false };
         setError((errorData) => ({ ...errorData, ...noProblem }));
         clearInputs();
@@ -40,6 +39,7 @@ export const Login: React.FC = () => {
       y.value = "";
     }
   }
+
   if (!openLogin) return null;
   return (
     <div className={styles.wrapper} onClick={() => setOpenLogin!(false)}>
@@ -50,15 +50,16 @@ export const Login: React.FC = () => {
             className={styles.ggClose}
           ></i>
         </div>
-        <p className={styles.heading}>Log in</p>
+        <p className={styles.heading}>Login</p>
         <form onSubmit={(e) => signIn(e)}>
           <div className={styles.form}>
             <div className={styles.username}>
               <p>Email</p>
               <input
                 id="lEmail"
-                type={"email"}
+                type="email"
                 placeholder="example@example.com"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                 ref={emailRef}
                 required
               />
@@ -67,19 +68,23 @@ export const Login: React.FC = () => {
               <p>Password</p>
               <input
                 id="lPassword"
-                type={"password"}
+                type="password"
                 ref={passwordRef}
+                pattern="/[^A-Za-z0-9!@#$%^&*]{8,20}"
                 required
               />
             </div>
           </div>
           <div className={styles.buttons}>
-            {errorData.isError === true ? (
-              <p style={{ color: "red" }}>{errorData.message}</p>
-            ) : (
-              ""
+            {errorData.isError && (
+              <p className={styles.errorMessage}>{errorData.message}</p>
             )}
-            <button onSubmit={(e) => signIn(e)}>Submit</button>
+            <input
+              onSubmit={(e) => signIn(e)}
+              type="submit"
+              value="Submit"
+              disabled
+            />
             <a
               onClick={() => {
                 setOpenLogin!(false);
