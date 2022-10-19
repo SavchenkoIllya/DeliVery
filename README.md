@@ -1,6 +1,8 @@
 Delivery app created with react & firebase, firestore and firebase hosting for my developer portfolio
 Used SCSS as CSS pre-processor
+
 Forms validations will be available in further updates 
+Also in plans rework project for better component usage
 
 Used Carousel from "nuka-carousel" module to save some time
 
