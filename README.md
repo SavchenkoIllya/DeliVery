@@ -1,5 +1,6 @@
 Delivery app created with react & firebase, firestore and firebase hosting for my developer portfolio
 Current build you can find here https://delivery-app-95f21.firebaseapp.com/
+
 Used SCSS as CSS pre-processor
 
 Forms validations will be available in further updates 
